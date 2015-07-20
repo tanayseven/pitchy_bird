@@ -1,0 +1,15 @@
+{
+  "name": "PitchyBird",
+  "version": "0.0.0",
+  "desctiption": "A fun web based game played using voice inspired from flappy bird",
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "latest",
+    "express-json": "latest",
+    "jade": "latest",
+    "https": "latest",
+    "mongoose": "latest",
+    "querystring": "latest"
+  },
+  "author": "Tanay PrabhuDesai"
+}
