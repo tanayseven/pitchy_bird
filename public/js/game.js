@@ -119,7 +119,7 @@ function loaded () {
   };
   player.update = function () {
     if(player.testCollision()) {
-      window.alert("Game Over");
+      global.gameOver = true;
     }
     if ( audioInput.getMaxAmpl() > 140 ) {
       player.downSpeed = 0;//stop current motion direction and move upwards
@@ -145,6 +145,8 @@ function loaded () {
   var global = {
     width:0,
     height:0,
+    gameOver:false,
+    paused:false,
     score:0,
     old_obs:0,
     new_obs:0,
@@ -199,6 +201,43 @@ function loaded () {
       ctx.fillRect(obstacles.onScreen[i].x,obstacles.onScreen[i].y+obstacles.gap/2,obstacles.width,global.height);
     }
   };
+  var messageOutput = {
+    cap:'Game Over!',
+    msg:['Press any key or click anywhere','to go to the leaderboard'],
+    msgSpace: 50,
+    msgX:20,
+    msgY:50,
+    msgThick:20,
+    x:0,
+    y:0,
+    width:700,
+    height:300,
+    thickness:5
+  };
+  messageOutput.reposition = function() {
+    messageOutput.x = (global.width - messageOutput.width)/2;
+    messageOutput.y = (global.height - messageOutput.height)/2;
+  }
+  messageOutput.draw = function(ctx){
+    var oldThickness = ctx.lineWidth;
+    var oldFill = ctx.fillStyle, oldStroke = ctx.strokeStyle;
+    ctx.lineWidth = messageOutput.thickness;
+    ctx.fillStyle = 'black';
+    ctx.fillRect(messageOutput.x, messageOutput.y, messageOutput.width, messageOutput.height);
+    ctx.strokeStyle = 'white';
+    ctx.rect(messageOutput.x, messageOutput.y, messageOutput.width, messageOutput.height);
+    ctx.stroke();
+    ctx.fillStyle = 'white';
+    ctx.font="30px Press Start K";
+    ctx.fillText(messageOutput.cap, messageOutput.x + messageOutput.msgX, messageOutput.y + messageOutput.msgY);
+    ctx.font="20px Press Start K";
+    for (var i = 0 ; i < messageOutput.msg.length ; ++i ) {
+      ctx.fillText(messageOutput.msg[i], messageOutput.x + messageOutput.msgX, messageOutput.y + messageOutput.msgY + messageOutput.msgThick*(i+1) + messageOutput.msgSpace );
+    }
+    ctx.lineWidth = oldThickness;
+    ctx.fillStyle = oldFill;
+    ctx.strokeStyle = oldStroke;
+  };
   function init() {
     var canvas = document.getElementById('game_canvas');
     global.ctx = canvas.getContext("2d");
@@ -208,10 +247,13 @@ function loaded () {
     audioInput.init();
     player.init();
     obstacles.init();
+    messageOutput.reposition();
   }
   function update() {
-    player.update();
-    obstacles.update();
+    if ( ! global.gameOver) {
+      player.update();
+      obstacles.update();
+    }
   }
   function draw() {
     ctx = global.ctx;
@@ -224,7 +266,10 @@ function loaded () {
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,300,60);
     ctx.fillStyle = "white";
-    ctx.fillText("Score: "+global.score,10,50);
+    ctx.fillText("Score: "+global.score,0,30);
+    if (global.gameOver) {
+      messageOutput.draw(ctx);
+    };
   }
   init();
   var step = function(timestamp) {
