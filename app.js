@@ -85,7 +85,7 @@ app.get('/', function (req, res) {
 });
 
 function captchaVerified(chunk, res) {
-	var txt = 'Please complete the captcha challenge';
+	var txt = 'Please prove that you are not a robot';
 	var obj = JSON.parse(chunk);
 	console.log(typeof(obj)+' '+obj+' '+obj.success);
 	if (obj["success"]) {
