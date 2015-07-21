@@ -23,33 +23,23 @@ doctype html
 head
   title= "Pitchy Bird (Login)"
   link(rel="stylesheet",href="game.css")
-  style.
-    div {
-    text-align: center;
-    vertical-align: center;
-    }
-    body {
-    padding-top: 100px;
-    }
 
-body.retro
-  div
+body.retro.login
+  div.login
     h1
-      span.retro Pitchy Bird
-    br
-    br
-    br
-    br
-    br
-    br
+      span.retro.login Pitchy Bird
     form(action='/play', method='POST')
-      p.retro Username: 
-      input.retro(name='username', type='text', autofocus)
-      br
-      br
-      div(id='captcha')
+      p.retro.login Username: 
+      p
+        input.retro.login(name='username', type='text', autofocus)
+      p.retro.login Prove that you are not a bot:
+      div#captcha.login
         div(class='g-recaptcha', data-sitekey='6LeZEAoTAAAAAI-nIEB1T9FvyPytKtsmXa5W8eXX', data-theme='dark')
       br
-      input.retro(type='submit', value='Play the game!')
-      p.retro #{msg}
+      input.retro.login(type='submit', value='Play the game!')
+      p.retro.login #{msg}
+    div.retro_footer 
+      p.retro_footer
+      | Created by Tanay PrabhuDesai © 2015 MIT License, Fonts by codeman38 ©  2001-2 
+      a(href='http://www.zone38.net/') codeman38
     script(src='https://www.google.com/recaptcha/api.js')
