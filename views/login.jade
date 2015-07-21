@@ -29,11 +29,13 @@ body.retro.login
     h1
       span.retro.login Pitchy Bird
     form(action='/play', method='POST')
+      br
       p.retro.login Username: 
       p
         input.retro.login(name='username', type='text', autofocus)
+      br
       p.retro.login Prove that you are not a bot:
-      div#captcha.login
+      div#captcha
         div(class='g-recaptcha', data-sitekey='6LeZEAoTAAAAAI-nIEB1T9FvyPytKtsmXa5W8eXX', data-theme='dark')
       br
       input.retro.login(type='submit', value='Play the game!')
