@@ -253,6 +253,8 @@ function loaded () {
     player.init();
     obstacles.init();
     messageOutput.reposition();
+    window.addEventListener("click", leaderboardsOpen, false);
+    window.addEventListener("keydown", leaderboardsOpen, false);
   }
   function update() {
     if ( ! global.gameOver) {
@@ -274,7 +276,6 @@ function loaded () {
     ctx.fillText("Score: "+global.score,0,30);
     if (global.gameOver) {
       messageOutput.draw(ctx);
-      leaderboardsOpen('la');
     };
   }
   init();
