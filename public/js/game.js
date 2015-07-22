@@ -193,7 +193,6 @@ function loaded () {
     if (obstacles.onScreen[0].x + obstacles.width < 0) {
       obstacles.onScreen.splice(0,1);
     }
-//    console.log(obstacles.onScreen);
   };
   obstacles.draw = function (ctx) {
     for ( var i = 0 ; i < obstacles.onScreen.length ; ++i ) {
@@ -238,6 +237,12 @@ function loaded () {
     ctx.fillStyle = oldFill;
     ctx.strokeStyle = oldStroke;
   };
+  function leaderboardsOpen(e) {
+    if (global.gameOver) {
+      window.open('http://'+window.location.host+'/leaderboards','_self');
+      console.log('opening: '+'http://'+window.location.host+'/leaderboards');
+    }
+  }
   function init() {
     var canvas = document.getElementById('game_canvas');
     global.ctx = canvas.getContext("2d");
@@ -269,6 +274,7 @@ function loaded () {
     ctx.fillText("Score: "+global.score,0,30);
     if (global.gameOver) {
       messageOutput.draw(ctx);
+      leaderboardsOpen('la');
     };
   }
   init();

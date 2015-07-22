@@ -103,6 +103,9 @@ app.post('/play',function(req, res){
 		postCaptcha(req.body['g-recaptcha-response'],req.ip,res,captchaVerified)
 	}
 });
+app.get('/leaderboards',function(req,res){
+  res.render('leaderboards.jade');
+});
 
 var server = app.listen(port, function () {
   var host = server.address().address;

@@ -65,3 +65,17 @@ div.login {
 	left: 10px;
 	bottom: 10px;
 }
+
+.leaderboards-header {
+	margin: auto;
+	text-align: center;
+	vertical-align: center;
+	padding-top: 2%;
+	line-height: 2.5em;
+}
+
+.top-list {
+	width: 33.33%;
+	text-align: center;
+	float: left;
+}
