@@ -123,7 +123,7 @@ function loaded () {
     }
     if ( audioInput.getMaxAmpl() > 140 ) {
       player.downSpeed = 0;//stop current motion direction and move upwards
-      player.downSpeed -= (audioInput.getMaxFreq() - audioInput.freq.min)/2;//dividing factor(convert to a constant later)
+      player.downSpeed -= (audioInput.getMaxFreq() - audioInput.freq.min)/3;//dividing factor(convert to a constant later)
     }
     else {
       if (player.downSpeed < global.gravity.t )
@@ -150,7 +150,7 @@ function loaded () {
     score:0,
     old_obs:0,
     new_obs:0,
-    gravity: {t:7,f:0.5}
+    gravity: {t:4.5,f:0.5}
   };
   var obstacles = {
     list:[],
