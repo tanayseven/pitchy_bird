@@ -156,7 +156,7 @@ function loaded () {
     list:[],
     next:0,
     onScreen:[],
-    gap:100,
+    gap:200,
     width:50,
     speed:5
   };
