@@ -101,7 +101,7 @@ app.post('/play',function(req, res){
 		var txt = 'Username cannot be left empty';
   	res.render('login.jade',{msg:txt});
 	} else {
-		postCaptcha(req.body['g-recaptcha-response'],req.ip,res,req.body['username'],captchaVerified);
+		postCaptcha(req.body['g-recaptcha-response'],req.headers["x-forwarded-for"] || req.connection.remoteAddress,res,req.body['username'],captchaVerified);
 	}
 });
 
