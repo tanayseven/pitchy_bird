@@ -42,6 +42,7 @@ var getDateString = function(date){
 var flushTable = function(tableName, dateObj, callback) {
 	var strDate = getDateString(dateObj);
 	client = new pg.Client(connectionString);
+	client.end();
 	client.connect();
 	query = client.query('DELETE FROM '+tableName+' WHERE latest_date<TO_DATE(\''+strDate+'\',\'YYYY-MM-DD\');', function(err, result) {
 		if(err) {
@@ -55,6 +56,7 @@ var flushTable = function(tableName, dateObj, callback) {
 };
 var insertIntoTable = function(tableName, data, callback) {
 	client = new pg.Client(connectionString);
+	client.end();
 	client.connect();
 	query = client.query('SELECT * FROM '+tableName+' WHERE username=\''+data.username+'\';', function(err, result) {
 		if(err) {
@@ -121,6 +123,7 @@ var insertIntoTable = function(tableName, data, callback) {
 var readFromTable = function(tableName, callback) {
 	flushTable(tableName, new Date(), function(){
 		client = new pg.Client(connectionString);
+		client.end();
 		client.connect();
 		query = client.query('SELECT * FROM '+tableName+' ORDER BY score DESC, latest_date DESC, latest_time DESC;', function(err, result){
 			if(err) {
@@ -137,10 +140,12 @@ var readFromTable = function(tableName, callback) {
 };
 var createNonExistent = function(tableName, callback) {
 	client = new pg.Client(connectionString);
+	client.end();
 	client.connect();
 	query = client.query('CREATE TABLE IF NOT EXISTS  '+tableName+' (username VARCHAR(16) PRIMARY KEY NOT NULL,	score INTEGER NOT NULL,	latest_date DATE NOT NULL, latest_time TIME NOT NULL, ip VARCHAR(20) NOT NULL);', function(err, result) {
 		if (err) {
 			console.log(err);
+			client.end();
 			return;
 		}
 		console.log('Table Created');
@@ -191,6 +196,7 @@ exports.readLeaderBoards = function(callback) {
 						readFromTable('alltime', function(result) {
 							boards['alltime'] = result.rows;
 							console.log(boards['today']);
+							client.end();
 							callback(boards);
 						});
 					});
