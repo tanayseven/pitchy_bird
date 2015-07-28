@@ -40,7 +40,6 @@ var getDateString = function(date){
 	return ''+strYear+'-'+strMonth+'-'+strDate;
 }
 var flushTable = function(tableName, dateObj, callback) {
-	var client = null, query = null;
 	var strDate = getDateString(dateObj);
 	client = new pg.Client(connectionString);
 	client.connect();
@@ -53,7 +52,6 @@ var flushTable = function(tableName, dateObj, callback) {
 	});
 };
 var insertIntoTable = function(tableName, data, callback) {
-	var client = null, query = null;
 	client = new pg.Client(connectionString);
 	client.connect();
 	query = client.query('SELECT * FROM '+tableName+' WHERE username=\''+data.username+'\';', function(err, result) {
@@ -111,7 +109,6 @@ var insertIntoTable = function(tableName, data, callback) {
 };
 var readFromTable = function(tableName, callback) {
 	flushTable(tableName, new Date(), function(){
-		var client = null, query = null;
 		client = new pg.Client(connectionString);
 		client.connect();
 		query = client.query('SELECT * FROM '+tableName+' ORDER BY score DESC, latest_date DESC, latest_time DESC;', function(err, result){
@@ -126,7 +123,6 @@ var readFromTable = function(tableName, callback) {
 	});
 };
 var createNonExistent = function(tableName, callback) {
-	var client = null, query = null;
 	client = new pg.Client(connectionString);
 	client.connect();
 	query = client.query('CREATE TABLE IF NOT EXISTS  '+tableName+' (username VARCHAR(16) PRIMARY KEY NOT NULL,	score INTEGER NOT NULL,	latest_date DATE NOT NULL, latest_time TIME NOT NULL, ip VARCHAR(20) NOT NULL);', function(err, result) {
