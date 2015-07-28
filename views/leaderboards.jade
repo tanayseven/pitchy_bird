@@ -34,13 +34,13 @@ body.retro
 				span.retro Today's top 10
 			div.retro
 				ul.retro
-					each val in today
+					each val in today ? today:{username : ['No one played today']}
 						li= val["username"] + ' : ' + val['score']
 		div.top-list
 			h3 
 				span.retro All time top 10
 				ul.retro
-					each val in alltime
+					each val in alltime ? alltime:{username : ['No one played ever']}
 						li= val["username"] + ' : ' + val['score']
 			div.retro
 
@@ -48,6 +48,6 @@ body.retro
 			h3 
 				span.retro This week's top 10
 				ul.retro
-					each val in thisweek
+					each val in thisweek ? thisweek:{username : ['No one played this week']}
 						li= val["username"] + ' : ' + val['score']
 			div.retro
