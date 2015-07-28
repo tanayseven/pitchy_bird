@@ -142,7 +142,7 @@ var createNonExistent = function(tableName, callback) {
 	client = new pg.Client(connectionString);
 	client.end();
 	client.connect();
-	query = client.query('CREATE TABLE IF NOT EXISTS  '+tableName+' (username VARCHAR(16) PRIMARY KEY NOT NULL,	score INTEGER NOT NULL,	latest_date DATE NOT NULL, latest_time TIME NOT NULL, ip VARCHAR(20) NOT NULL);', function(err, result) {
+	query = client.query('CREATE TABLE IF NOT EXISTS  '+tableName+' (username VARCHAR(16) PRIMARY KEY NOT NULL,	score INTEGER NOT NULL,	latest_date DATE NOT NULL, latest_time TIME NOT NULL, ip VARCHAR(30) NOT NULL);', function(err, result) {
 		if (err) {
 			console.log(err);
 			client.end();
@@ -196,7 +196,7 @@ exports.readLeaderBoards = function(callback) {
 						readFromTable('alltime', function(result) {
 							boards['alltime'] = result.rows;
 							console.log(boards['today']);
-							client.end();
+							client.done();
 							callback(boards);
 						});
 					});
