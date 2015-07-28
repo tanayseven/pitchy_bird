@@ -46,8 +46,10 @@ var flushTable = function(tableName, dateObj, callback) {
 	query = client.query('DELETE FROM '+tableName+' WHERE latest_date<TO_DATE(\''+strDate+'\',\'YYYY-MM-DD\');', function(err, result) {
 		if(err) {
 			console.log(err);
+			client.end();
 			return;
 		}
+		client.end();
 		callback();
 	});
 };
@@ -57,6 +59,7 @@ var insertIntoTable = function(tableName, data, callback) {
 	query = client.query('SELECT * FROM '+tableName+' WHERE username=\''+data.username+'\';', function(err, result) {
 		if(err) {
 			console.log(err);
+			client.end();
 			return;
 		}
 		console.log(result.rowCount);
@@ -65,12 +68,15 @@ var insertIntoTable = function(tableName, data, callback) {
 				query = client.query('UPDATE '+tableName+' SET score='+data.score+', latest_date=\''+data.date+'\', latest_time=\''+data.time+'\', ip=\''+data.ip+'\' WHERE username=\''+data.username+'\';', function(err, result) {
 					if(err) {
 						console.log(err);
+						client.end();
 						return;
 					}
 					console.log('Updated while inserting');
+					client.end();
 					callback();
 				});
 			} else {
+				client.end();
 				callback();
 				return;
 			}
@@ -79,6 +85,7 @@ var insertIntoTable = function(tableName, data, callback) {
 			query = client.query('SELECT * FROM '+tableName+';', function(err, result){
 				if(err) {
 					console.log(err);
+					client.end();
 					return;
 				}
 				console.log(result.rows);
@@ -87,9 +94,11 @@ var insertIntoTable = function(tableName, data, callback) {
 					query = client.query('DELETE FROM '+tableName+' WHERE username=( SELECT DISTINCT username FROM '+tableName+' WHERE score=( SELECT DISTINCT MIN(score) FROM '+tableName+' ) LIMIT 1 );', function(err,rows){
 						if(err) {
 							console.log(err);
+							client.end();
 							return;
 						}
 						console.log('Deleted Extra!');
+						client.end();
 						insertIntoTable(tableName, data, callback);
 					});
 				} else {
@@ -97,9 +106,11 @@ var insertIntoTable = function(tableName, data, callback) {
 					query = client.query('INSERT INTO '+tableName+' VALUES (\''+data.username+'\', '+data.score+', \''+data.date+'\', \''+data.time+'\', \''+data.ip+'\');', function(err, result){
 						if(err) {
 							console.log(err);
+							client.end();
 							return;
 						}
 						console.log('Inserted while inserting');
+						client.end();
 						callback();
 					});
 				}
@@ -114,10 +125,12 @@ var readFromTable = function(tableName, callback) {
 		query = client.query('SELECT * FROM '+tableName+' ORDER BY score DESC, latest_date DESC, latest_time DESC;', function(err, result){
 			if(err) {
 				console.log(err);
+				client.end();
 				return;
 			}
 			console.log('Read values');
 			console.log(result.rows);
+			client.end();
 			callback(result);
 		});
 	});
@@ -131,6 +144,7 @@ var createNonExistent = function(tableName, callback) {
 			return;
 		}
 		console.log('Table Created');
+		client.end();
 		callback();
 	});
 }
