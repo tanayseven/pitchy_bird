@@ -62,15 +62,20 @@ var insertIntoTable = function(tableName, data, callback) {
 			return;
 		}
 		console.log(result.rowCount);
-		if(result.rowCount > 0 && result.rows[0].score < data.score) {
-			query = client.query('UPDATE '+tableName+' SET score='+data.score+', latest_date=\''+data.date+'\', latest_time=\''+data.time+'\', ip=\''+data.ip+'\' WHERE username=\''+data.username+'\';', function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				}
-				console.log('Updated while inserting');
+		if(result.rowCount > 0) {
+			if (result.rows[0].score < data.score) {
+				query = client.query('UPDATE '+tableName+' SET score='+data.score+', latest_date=\''+data.date+'\', latest_time=\''+data.time+'\', ip=\''+data.ip+'\' WHERE username=\''+data.username+'\';', function(err, result) {
+					if(err) {
+						console.log(err);
+						return;
+					}
+					console.log('Updated while inserting');
+					callback();
+				});
+			} else {
 				callback();
-			});
+				return;
+			}
 		} else {
 			console.log('SELECTing all the values');
 			query = client.query('SELECT * FROM '+tableName+';', function(err, result){
