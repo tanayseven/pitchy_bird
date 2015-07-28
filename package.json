@@ -8,7 +8,7 @@
     "habitat": "latest",
     "jade": "latest",
     "https": "latest",
-    "mongoose": "latest",
+    "pg": "latest",
     "querystring": "latest"
   },
   "author": "Tanay PrabhuDesai"

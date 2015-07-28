@@ -27,4 +27,6 @@ head
   link(rel='shortcut icon', type='image/x-icon', href='favicon.ico')
 body.retro
   canvas#game_canvas.retro(autofocus)
+  script.
+    var _username = '#{username}';
   script(src='game.js')

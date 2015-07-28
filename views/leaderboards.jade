@@ -32,9 +32,22 @@ body.retro
 		div.top-list
 			h3
 				span.retro Today's top 10
+			div.retro
+				ul.retro
+					each val in today
+						li= val["username"] + ' : ' + val['score']
 		div.top-list
 			h3 
 				span.retro All time top 10
+				ul.retro
+					each val in alltime
+						li= val["username"] + ' : ' + val['score']
+			div.retro
+
 		div.top-list
 			h3 
 				span.retro This week's top 10
+				ul.retro
+					each val in thisweek
+						li= val["username"] + ' : ' + val['score']
+			div.retro

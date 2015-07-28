@@ -148,6 +148,7 @@ function loaded () {
     gameOver:false,
     paused:false,
     score:0,
+    scoreSubmitted:false,
     old_obs:0,
     new_obs:0,
     gravity: {t:4.5,f:0.5}
@@ -243,10 +244,24 @@ function loaded () {
       console.log('opening: '+'http://'+window.location.host+'/leaderboards');
     }
   }
+  function submitScore() {
+    var http = new XMLHttpRequest();
+    http.open("POST", 'http://'+window.location.host+"/score", true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    var params = "username=" + global.username + "&score=" + global.score ; // probably use document.getElementById(...).value 
+    http.send(params); 
+    http.onload = function() { 
+      if (http.responseText == 'success') {
+        messageOutput.msg.push('Your score has been submitted');
+      } 
+    } 
+  }
   function init() {
     var canvas = document.getElementById('game_canvas');
     global.ctx = canvas.getContext("2d");
     obstacles.list = generateObstacles(10000);
+    console.log(_username);
+    global.username = _username;
     global.width = canvas.width  = window.innerWidth;
     global.height = canvas.height = window.innerHeight;
     audioInput.init();
@@ -260,6 +275,10 @@ function loaded () {
     if ( ! global.gameOver) {
       player.update();
       obstacles.update();
+    }
+    if (global.gameOver && ! global.scoreSubmitted) {
+      submitScore();
+      global.scoreSubmitted = true;
     }
   }
   function draw() {

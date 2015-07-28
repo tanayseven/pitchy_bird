@@ -24,6 +24,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var https = require('https');
 var querystring = require('querystring');
+var pdb = require('./db_handler.js');
 
 var env = (function(){
       var Habitat = require("habitat");
@@ -50,7 +51,7 @@ app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/public/css/font/'));
 app.use(express.static(__dirname + '/public/res'));
 
-function postCaptcha(response,ip,res_in,captchaVerified) {
+function postCaptcha(response,ip,res_in,username,captchaVerified) {
 	var post_data = querystring.stringify({
       'secret' : process.env.SECRET_KEY || env.get("SECRET_KEY"),
       'response': response,
@@ -72,7 +73,7 @@ function postCaptcha(response,ip,res_in,captchaVerified) {
       res.setEncoding('utf8');
       res.on('data', function (chunk) {
           console.log('Response: ' + chunk);
-          captchaVerified(chunk,res_in);
+          captchaVerified(chunk,username,res_in);
       });
   });
   console.log('Post completed');
@@ -84,12 +85,12 @@ app.get('/', function (req, res) {
   res.render('login.jade',{msg:''});
 });
 
-function captchaVerified(chunk, res) {
+function captchaVerified(chunk, username, res) {
 	var txt = 'Please prove that you are not a robot';
 	var obj = JSON.parse(chunk);
 	console.log(typeof(obj)+' '+obj+' '+obj.success);
 	if (obj["success"]) {
-		res.render('game.jade');
+		res.render('game.jade',{username:username});
 	} else {
 		res.render('login.jade',{msg:txt});
 	}
@@ -100,11 +101,20 @@ app.post('/play',function(req, res){
 		var txt = 'Username cannot be left empty';
   	res.render('login.jade',{msg:txt});
 	} else {
-		postCaptcha(req.body['g-recaptcha-response'],req.ip,res,captchaVerified)
+		postCaptcha(req.body['g-recaptcha-response'],req.ip,res,req.body['username'],captchaVerified);
 	}
 });
+
 app.get('/leaderboards',function(req,res){
-  res.render('leaderboards.jade');
+  pdb.readLeaderBoards(function(result){
+    res.render('leaderboards.jade', {today:result['today'], alltime:result['alltime'], thisweek:result['thisweek']});
+  });
+});
+
+app.post('/score', function(req, res){
+  pdb.saveScore(req.body['username'], req.body['score'], req.ip.toString());
+  console.log('Recieved Code');
+  res.send('success');
 });
 
 var server = app.listen(port, function () {

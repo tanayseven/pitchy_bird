@@ -79,3 +79,6 @@ div.login {
 	text-align: center;
 	float: left;
 }
+ul.retro {
+    list-style-type: none;
+}
