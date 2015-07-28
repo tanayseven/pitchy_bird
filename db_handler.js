@@ -124,7 +124,7 @@ var createNonExistent = function(tableName, callback) {
 	var client = null, query = null;
 	client = new pg.Client(connectionString);
 	client.connect();
-	query = client.query('CREATE TABLE IF NOT EXISTS  '+tableName+' (username VARCHAR(8) PRIMARY KEY NOT NULL,	score INTEGER NOT NULL,	latest_date DATE NOT NULL, latest_time TIME NOT NULL, ip VARCHAR(16) NOT NULL);', function(err, result) {
+	query = client.query('CREATE TABLE IF NOT EXISTS  '+tableName+' (username VARCHAR(8) PRIMARY KEY NOT NULL,	score INTEGER NOT NULL,	latest_date DATE NOT NULL, latest_time TIME NOT NULL, ip VARCHAR(20) NOT NULL);', function(err, result) {
 		if (err) {
 			console.log(err);
 			return;
