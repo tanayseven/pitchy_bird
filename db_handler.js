@@ -64,7 +64,6 @@ var insertIntoTable = function(tableName, data, callback) {
 			client.end();
 			return;
 		}
-		client.end();
 		console.log(result.rowCount);
 		if(result.rowCount > 0) {
 			if (result.rows[0].score < data.score) {
@@ -82,7 +81,6 @@ var insertIntoTable = function(tableName, data, callback) {
 					callback();
 				});
 			} else {
-				client.end();
 				callback();
 				return;
 			}
