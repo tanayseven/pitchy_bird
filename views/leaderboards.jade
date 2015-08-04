@@ -39,6 +39,7 @@ body.retro
 		div.top-list
 			h3 
 				span.retro All time top 10
+			div.retro
 				ul.retro
 					each val in alltime ? alltime:{username : ['No one played ever']}
 						li= val["username"] + ' : ' + val['score']
@@ -47,6 +48,7 @@ body.retro
 		div.top-list
 			h3 
 				span.retro This week's top 10
+			div.retro
 				ul.retro
 					each val in thisweek ? thisweek:{username : ['No one played this week']}
 						li= val["username"] + ' : ' + val['score']
