@@ -175,12 +175,12 @@ exports.saveScore = function (username,score,ip) {
 		});
 	});
 	createNonExistent('thisweek', function(){
+		var dateObj = new Date();
+		var strDate = getDateString(dateObj);
+		while (dateObj.getDay() != 0) {
+			dateObj.setDate(dateObj.getDate()-1);
+		}
 		flushTable('thisweek',new Date(), function(){
-			var dateObj = new Date();
-			var strDate = getDateString(dateObj);
-			while (dateObj.getDay() != 0) {
-				dateObj.setDate(dateObj.getDate()-1);
-			}
 			console.log(dateObj);
 			insertIntoTable('thisweek',{username:username, score:score, date:strDate, time:'00:00:00', ip:ip},function(){
 				console.log('Done!');
