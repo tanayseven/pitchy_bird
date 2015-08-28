@@ -132,21 +132,19 @@ var insertIntoTable = function(tableName, data, callback) {
 	});
 };
 var readFromTable = function(tableName, callback) {
-	flushTable(tableName, new Date(), function(){
-		var client = null, query = null;
-		client = new pg.Client(connectionString);
-		client.connect();
-		query = client.query('SELECT * FROM '+tableName+' ORDER BY score DESC, latest_date DESC, latest_time DESC;', function(err, result){
-			if(err) {
-				console.log(err);
-				client.end();
-				return;
-			}
-			console.log('Read values');
-			console.log(result.rows);
+	var client = null, query = null;
+	client = new pg.Client(connectionString);
+	client.connect();
+	query = client.query('SELECT * FROM '+tableName+' ORDER BY score DESC, latest_date DESC, latest_time DESC;', function(err, result) {
+		if(err) {
+			console.log(err);
 			client.end();
-			callback(result);
-		});
+			return;
+		}
+		console.log('Read values');
+		console.log(result.rows);
+		client.end();
+		callback(result);
 	});
 };
 var createNonExistent = function(tableName, callback) {
@@ -164,12 +162,24 @@ var createNonExistent = function(tableName, callback) {
 		callback();
 	});
 }
+var flushAll = function(callback) {
+	flushTable('today',new Date(), function(){
+		var dateObj = new Date();
+		var strDate = getDateString(dateObj);
+		while (dateObj.getDay() != 0) {
+			dateObj.setDate(dateObj.getDate()-1);
+		}
+		flushTable('thisweek',new Date(), function(){
+			callback();		
+		});
+	});
+}
 exports.saveScore = function (username,score,ip) {
 	createNonExistent('today', function(){
 			flushTable('today',new Date(), function(){
-			var dateObj = new Date();
-			var strDate = getDateString(dateObj);
-			insertIntoTable('today',{username:username, score:score, date:strDate, time:'00:00:00', ip:ip},function(){
+				var dateObj = new Date();
+				var strDate = getDateString(dateObj);
+				insertIntoTable('today',{username:username, score:score, date:strDate, time:'00:00:00', ip:ip},function(){
 				console.log('Done!');
 			});
 		});
@@ -197,21 +207,23 @@ exports.saveScore = function (username,score,ip) {
 };
 exports.readLeaderBoards = function(callback) {
 	var boards = [];
-	createNonExistent('alltime', function(){
-		createNonExistent('thisweek', function(){
-			createNonExistent('today', function(){
-				readFromTable('today', function(result) {
-					boards['today'] = result.rows;
-					readFromTable('thisweek', function(result) {
-						boards['thisweek'] = result.rows;
-						readFromTable('alltime', function(result) {
-							boards['alltime'] = result.rows;
-							console.log(boards['today']);
-							callback(boards);
-						});
-					});
-				});
-			});
-		});
+	flushAll(function(){
+	  	createNonExistent('alltime', function(){
+	  		createNonExistent('thisweek', function(){
+	  			createNonExistent('today', function(){
+	  				readFromTable('today', function(result) {
+	  					boards['today'] = result.rows;
+	  					readFromTable('thisweek', function(result) {
+	  						boards['thisweek'] = result.rows;
+	  						readFromTable('alltime', function(result) {
+	  							boards['alltime'] = result.rows;
+	  							console.log(boards['today']);
+	  							callback(boards);
+	  						});
+	  					});
+	  				});
+	  			});
+	  		});
+	    });
 	});
 };
