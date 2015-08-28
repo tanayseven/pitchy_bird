@@ -29,7 +29,7 @@ canvas { display:block; } /* To remove the scrollbars */
 
 @font-face {	/*Font by codeman38*/
 	font-family: "Press Start K";
-	src:url(res/prstartk.ttf) url(prstartk.ttf)  format("truetype");
+	src: url(../prstartk.ttf)  format("truetype");
 	color: white;
 }
 

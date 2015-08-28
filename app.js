@@ -48,7 +48,7 @@ app.engine('jade', require('jade').__express);
 // Use all the public files
 app.use(express.static(__dirname + '/public/js'));
 app.use(express.static(__dirname + '/public/css'));
-app.use(express.static(__dirname + '/public/css/font/'));
+app.use(express.static(__dirname + '/public/res/prstartk.ttf'));
 app.use(express.static(__dirname + '/public/res'));
 
 function postCaptcha(response,ip,res_in,username,captchaVerified) {
