@@ -38,7 +38,7 @@ var getDateString = function(date){
 	}
 	strYear = date.getFullYear().toString();
 	return ''+strYear+'-'+strMonth+'-'+strDate;
-}
+};
 var flushTable = function(tableName, dateObj, callback) {
 	var client = null, query = null;
 	var strDate = getDateString(dateObj);
@@ -175,33 +175,31 @@ var flushAll = function(callback) {
 	});
 }
 exports.saveScore = function (username,score,ip) {
-	createNonExistent('today', function(){
-			flushTable('today',new Date(), function(){
+	flushAll(function(){
+		createNonExistent('today', function(){
 				var dateObj = new Date();
 				var strDate = getDateString(dateObj);
 				insertIntoTable('today',{username:username, score:score, date:strDate, time:'00:00:00', ip:ip},function(){
 				console.log('Done!');
 			});
 		});
-	});
-	createNonExistent('thisweek', function(){
-		var dateObj = new Date();
-		var strDate = getDateString(dateObj);
-		while (dateObj.getDay() != 0) {
-			dateObj.setDate(dateObj.getDate()-1);
-		}
-		flushTable('thisweek',new Date(), function(){
+		createNonExistent('thisweek', function(){
+			var dateObj = new Date();
+			var strDate = getDateString(dateObj);
+			while (dateObj.getDay() != 0) {
+				dateObj.setDate(dateObj.getDate()-1);
+			}
 			console.log(dateObj);
 			insertIntoTable('thisweek',{username:username, score:score, date:strDate, time:'00:00:00', ip:ip},function(){
 				console.log('Done!');
 			});
 		});
-	});
-	createNonExistent('alltime', function(){
-		var dateObj = new Date();
-		var strDate = getDateString(dateObj);
-		insertIntoTable('alltime',{username:username, score:score, date:strDate, time:'00:00:00', ip:ip},function(){
-			console.log('Done!');
+		createNonExistent('alltime', function(){
+			var dateObj = new Date();
+			var strDate = getDateString(dateObj);
+			insertIntoTable('alltime',{username:username, score:score, date:strDate, time:'00:00:00', ip:ip},function(){
+				console.log('Done!');
+			});
 		});
 	});
 };
