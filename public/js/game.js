@@ -31,7 +31,7 @@ function loaded () {
     ampl:{}
   };
   audioInput.init = function() {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContext();
     var mediaStreamSource = null;
     var gotStream = null;
@@ -66,7 +66,7 @@ function loaded () {
       alert('Stream generation failed.');
     };
     try {
-      navigator.getUserMedia = 
+      navigator.getUserMedia =
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;
@@ -248,13 +248,13 @@ function loaded () {
     var http = new XMLHttpRequest();
     http.open("POST", 'http://'+window.location.host+"/score", true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    var params = "username=" + global.username + "&score=" + global.score ; // probably use document.getElementById(...).value 
-    http.send(params); 
-    http.onload = function() { 
+    var params = "username=" + global.username + "&score=" + global.score ; // probably use document.getElementById(...).value
+    http.send(params);
+    http.onload = function() {
       if (http.responseText == 'success') {
         messageOutput.msg.push('Your score has been submitted');
-      } 
-    } 
+      }
+    }
   }
   function init() {
     var canvas = document.getElementById('game_canvas');
