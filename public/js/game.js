@@ -70,9 +70,9 @@ function loaded () {
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;
-      navigator.getUserMedia(dictionary, gotStream, error);
+      navigator.getUserMedia({audio:true}, gotStream, error);
     } catch (e) {
-      alert('Could not detect the mic' + e);
+      console.log('Could not detect the mic ' + e);
     }
   };
   audioInput.getMaxFreq = function() {
