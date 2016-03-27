@@ -240,13 +240,13 @@ function loaded () {
   };
   function leaderboardsOpen(e) {
     if (global.gameOver) {
-      window.open('http://'+window.location.host+'/leaderboards','_self');
-      console.log('opening: '+'http://'+window.location.host+'/leaderboards');
+      window.open('https://'+window.location.host+'/leaderboards','_self');
+      console.log('opening: '+'https://'+window.location.host+'/leaderboards');
     }
   }
   function submitScore() {
     var http = new XMLHttpRequest();
-    http.open("POST", 'http://'+window.location.host+"/score", true);
+    http.open("POST", 'https://'+window.location.host+"/score", true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     var params = "username=" + global.username + "&score=" + global.score ; // probably use document.getElementById(...).value
     http.send(params);
