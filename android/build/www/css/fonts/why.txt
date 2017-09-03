@@ -1,1 +1,0 @@
-There is a redundant copy of font here because of a restriction with regards to security on Mozilla Firefox.
