@@ -18,6 +18,5 @@ Creating an APK (needs Android SDK and gradle installed)
 $ npm install -g cordova # Install Cordova on your system (If not already installed)
 $ ./build-android.sh # Build an APK
 # The following commads needs a connected device or an emulator
-$ adb uninstall com.tanayseven.pitchybird # If an APK is already installed
 $ adb install -r [path-printed-after-build] # Install the apk onto the device
 ```
