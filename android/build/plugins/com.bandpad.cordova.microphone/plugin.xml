@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="com.bandpad.cordova.microphone" version="1.2.1" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+  <name>Microphone</name>
+  <description>Cordova iOS Microphone Record Permission</description>
+  <license>Apache 2.0</license>
+  <keywords>cordova,ios,microphone,permission,record</keywords>
+  <repo>https://github.com/amitgur/cordova-plugin-microphone.git</repo>
+  <issue>https://github.com/amitgur/cordova-plugin-microphone.git/issues</issue>
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="Microphone">
+        <param name="ios-package" value="Microphone"/>
+        <param name="onload" value="true"/>
+      </feature>
+    </config-file>
+    <header-file src="src/ios/Microphone.h"/>
+    <source-file src="src/ios/Microphone.m"/>
+    <js-module src="www/ios/microphone.js" name="microphone">
+      <clobbers target="navigator.microphone"/>
+    </js-module>
+  </platform>
+</plugin>

@@ -1,0 +1,47 @@
+//- The MIT License (MIT)
+
+//- Copyright (c) 2015 Tanay PrabhuDesai
+
+//- Permission is hereby granted, free of charge, to any person obtaining a copy
+//- of this software and associated documentation files (the "Software"), to deal
+//- in the Software without restriction, including without limitation the rights
+//- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//- copies of the Software, and to permit persons to whom the Software is
+//- furnished to do so, subject to the following conditions:
+
+//- The above copyright notice and this permission notice shall be included in
+//- all copies or substantial portions of the Software.
+
+//- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//- THE SOFTWARE.
+doctype html
+head
+  title= "Pitchy Bird (Login)"
+  link(rel="stylesheet",href="game.css")
+  link(rel='shortcut icon', type='image/x-icon', href='favicon.ico')
+body.retro.login
+  div.login
+    h1
+      span.retro.login Pitchy Bird
+    form(action='/play', method='POST')
+      br
+      p.retro.login Username: 
+      p
+        input.retro.login(name='username', type='text', autofocus)
+      br
+      p.retro.login Prove that you are not a bot:
+      div#captcha
+        div(class='g-recaptcha', data-sitekey='6LeZEAoTAAAAAI-nIEB1T9FvyPytKtsmXa5W8eXX', data-theme='dark')
+      br
+      input.retro.login(type='submit', value='Play the game!')
+      p.retro.login #{msg}
+    div.retro_footer 
+      p.retro_footer
+      | Created by Tanay PrabhuDesai © 2015 MIT License, Fonts by codeman38 ©  2001-2 
+      a(href='http://www.zone38.net/') codeman38
+    script(src='https://www.google.com/recaptcha/api.js')

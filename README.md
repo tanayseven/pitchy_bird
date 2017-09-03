@@ -5,13 +5,19 @@ A retro themed game controlled by voice, inspired from the game Flappy Bird
 ---------------------------------------------------------------------------
 
 
-Running it locally without a server
------------------------------------
+Running it locally
+------------------
 ```bash
-$ npm install -g http-server # install the server to run the app
-$ cd views/ # change to the file that has html files
-$ http-server # run a server in the current directory to run the app
+$ npm install # To install all the application dependencies
+$ node app.js # To run the applicaiton locally in the browser
 ```
 
-
-
+Creating an APK (needs Android SDK and gradle installed)
+---------------------------------------------
+```bash
+$ npm install -g cordova # Install Cordova on your system (If not already installed)
+$ ./build-android.sh # Build an APK
+# The following commads needs a connected device or an emulator
+$ adb uninstall com.tanayseven.pitchybird # If an APK is already installed
+$ adb install -r [path-printed-after-build] # Install the apk onto the device
+```

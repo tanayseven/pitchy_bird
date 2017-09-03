@@ -1,0 +1,28 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.tanayseven.pitchybird"
+        },
+        "cordova-plugin-android-permissions": {
+            "PACKAGE_NAME": "com.tanayseven.pitchybird"
+        },
+        "com.bandpad.cordova.microphone": {
+            "PACKAGE_NAME": "com.tanayseven.pitchybird"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.tanayseven.pitchybird"
+        }
+    },
+    "dependent_plugins": {
+        "es6-promise-plugin": {
+            "PACKAGE_NAME": "com.tanayseven.pitchybird"
+        }
+    }
+}

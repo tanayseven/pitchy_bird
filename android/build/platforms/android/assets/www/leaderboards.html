@@ -1,0 +1,71 @@
+<!-- 
+The MIT License (MIT)
+
+Copyright (c) 2015 Tanay PrabhuDesai
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+ -->
+
+<doctype html>
+<html>
+<head>
+	<title>Pitchy Bird</title>
+	<link rel="stylesheet" href="game.css">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body class="retro">
+	<div class="retro leaderboards-header">
+		<h1 class="leaderboards-header">
+			<span class="retro leaderboards-header">Pitchy Bird</span>
+		<div class="top-list">
+			<h3>
+				<span class="retro"> Today's top 10</span>
+			</h3>
+			<div class="retro">
+				<ul class="retro">
+					<!-- each val in today ? today:{username : ['No one played today']}
+						li= val["username"] + ' : ' + val['score'] -->
+				</ul>
+			</div>
+		</div>
+		<div class="top-list">
+			<h3>
+				<span class="retro">All time top 10</span>
+			</h3>
+			<div class="retro">
+				<ul class="retro">
+					<!-- each val in alltime ? alltime:{username : ['No one played ever']}
+						li= val["username"] + ' : ' + val['score'] -->
+				</ul>
+			</div>
+		</div>
+
+		<div class="top-list">
+			<h3>
+				<span class="retro">This week's top 10</span>
+			</h3>
+			<div class="retro">
+				<ul class="retro">
+					<!-- each val in thisweek ? thisweek:{username : ['No one played this week']}
+						li= val["username"] + ' : ' + val['score'] -->
+				</ul>
+			</div>
+		</div>
+</body>
+</html>
