@@ -50,6 +50,7 @@ app.use(express.static(__dirname + '/public/js'));
 app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/public/res/prstartk.ttf'));
 app.use(express.static(__dirname + '/public/res'));
+app.use(express.static(__dirname + '/views'));
 
 function postCaptcha(response,ip,res_in,username,captchaVerified) {
 	var post_data = querystring.stringify({
@@ -80,10 +81,6 @@ function postCaptcha(response,ip,res_in,username,captchaVerified) {
   post_req.write(post_data);
   post_req.end();
 }
-
-app.get('/', function (req, res) {
-  res.render('login.jade',{msg:''});
-});
 
 function captchaVerified(chunk, username, res) {
 	var txt = 'Please prove that you are not a robot';

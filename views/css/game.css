@@ -23,62 +23,36 @@ THE SOFTWARE.
 */
 * { margin:0; padding:0;} /* to remove the top and left whitespace */
 
+@font-face {	/*Font by codeman38*/
+	font-family: "Press Start K";
+	src: url(prstartk.ttf)  format("truetype");
+	color: white;
+}
+
+* {
+	font-family: "Press Start K"; 
+	background-color: black;
+	color: white;
+}
+
 html, body { width:100%; height:100%;  } /* just to be sure these are full screen*/
+
+#game-name {
+	margin-top: 30px;
+}
+
+#play-button {
+	margin-top: 100px;
+	padding: 10px 10px 10px 10px;
+}
+
+#footer {
+	margin-top: 200px;
+}
+
+#login {
+	text-align: center;
+}
 
 canvas { display:block; } /* To remove the scrollbars */
 
-@font-face {	/*Font by codeman38*/
-	font-family: "Press Start K";
-	src: url(../prstartk.ttf)  format("truetype");
-	color: white;
-}
-
-.g-recaptcha div { 
-	margin: auto;
-	vertical-align: center;
-}
-
-div.login {
-	padding-top: 5%;
-	line-height: 2.5em;
-}
-
-.login {
-	margin: auto;
-	text-align: center;
-	vertical-align: center;
-}
-
-.retro {
-	font-family: "Press Start K"; 
-	background-color: black;
-	color: white;
-}
-
-.retro_footer {
-	font-family: "Press Start K"; 
-	background-color: black;
-	font-size: 10px;
-	position: absolute;
-	color: white;
-	text-align: left;
-	left: 10px;
-	bottom: 10px;
-}
-
-.leaderboards-header {
-	margin: auto;
-	text-align: center;
-	vertical-align: center;
-	padding-top: 2%;
-	line-height: 2.5em;
-}
-
-.top-list {
-	width: 33.33%;
-	text-align: center;
-	float: left;
-}
-ul.retro {
-    list-style-type: none;
-}

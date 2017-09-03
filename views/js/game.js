@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-function loaded () {
+function runGame () {
   //Add stuff here
   var audioReady = false;
   var audioInput = {
@@ -201,9 +201,10 @@ function loaded () {
       ctx.fillRect(obstacles.onScreen[i].x,obstacles.onScreen[i].y+obstacles.gap/2,obstacles.width,global.height);
     }
   };
+
   var messageOutput = {
     cap:'Game Over!',
-    msg:['Press any key or click anywhere','to go to the leaderboard'],
+    msg:['Click/Tap anywhere to ', 'play the game again'],
     msgSpace: 50,
     msgX:20,
     msgY:50,
@@ -214,10 +215,12 @@ function loaded () {
     height:300,
     thickness:5
   };
+
   messageOutput.reposition = function() {
     messageOutput.x = (global.width - messageOutput.width)/2;
     messageOutput.y = (global.height - messageOutput.height)/2;
   }
+
   messageOutput.draw = function(ctx){
     var oldThickness = ctx.lineWidth;
     var oldFill = ctx.fillStyle, oldStroke = ctx.strokeStyle;
@@ -238,10 +241,10 @@ function loaded () {
     ctx.fillStyle = oldFill;
     ctx.strokeStyle = oldStroke;
   };
-  function leaderboardsOpen(e) {
+
+  function playAgain(e) {
     if (global.gameOver) {
-      window.open('https://'+window.location.host+'/leaderboards','_self');
-      console.log('opening: '+'https://'+window.location.host+'/leaderboards');
+      runGame();
     }
   }
   function submitScore() {
@@ -260,16 +263,14 @@ function loaded () {
     var canvas = document.getElementById('game_canvas');
     global.ctx = canvas.getContext("2d");
     obstacles.list = generateObstacles(10000);
-    console.log(_username);
-    global.username = _username;
     global.width = canvas.width  = window.innerWidth;
     global.height = canvas.height = window.innerHeight;
     audioInput.init();
     player.init();
     obstacles.init();
     messageOutput.reposition();
-    window.addEventListener("click", leaderboardsOpen, false);
-    window.addEventListener("keydown", leaderboardsOpen, false);
+    window.addEventListener("click", playAgain, false);
+    window.addEventListener("keydown", playAgain, false);
   }
   function update() {
     if ( ! global.gameOver) {
@@ -307,4 +308,3 @@ function loaded () {
   };
   window.requestAnimationFrame(step);
 };
-window.onload = loaded;
